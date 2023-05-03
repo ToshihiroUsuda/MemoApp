@@ -1,12 +1,11 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 
 interface ITestScreenProps {
   message?: string;
 }
 
-const TestScreen: React.FC<ITestScreenProps> = ({message = 'World'}: ITestScreenProps) => {
-  // const {message} = props;
+const TestScreen: React.FC<ITestScreenProps> = ({ message = 'World' }: ITestScreenProps) => {
   return (
     <View style={styles.testScreen}>
       <Text>{`Hello ${message}`}</Text>
@@ -19,8 +18,8 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'gray',
     justifyContent: 'center',
-    alignItems: 'center'
-  }
+    alignItems: 'center',
+  },
 });
 
 export default TestScreen;

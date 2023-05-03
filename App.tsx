@@ -5,9 +5,7 @@ import React from 'react';
 import TestScreen from './src/screens/TestScreen';
 
 const App: React.FC = () => {
-  return (
-    <TestScreen message='ReactNative'/>
-  );
+  return <TestScreen message="ReactNative" />;
 };
 
 export default App;
