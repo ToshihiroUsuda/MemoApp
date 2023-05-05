@@ -1,53 +1,59 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
+import { ListItem, Button } from '@rneui/themed';
+
+type MemeListItemProps = {
+  title: string;
+  subtitle: string;
+};
+
+const MemoListItem: React.FC<MemeListItemProps> = (props) => {
+  const { title, subtitle } = props;
+
+  return (
+    <ListItem.Swipeable
+      bottomDivider
+      leftWidth={0}
+      rightContent={(reset) => (
+        <Button
+          title="Delete"
+          onPress={() => reset()}
+          icon={{ name: 'delete', color: 'white' }}
+          buttonStyle={{ minHeight: '100%', backgroundColor: 'red' }}
+        />
+      )}
+    >
+      <ListItem.Content>
+        <ListItem.Title style={styles.listTitle}>{title}</ListItem.Title>
+        <ListItem.Subtitle style={styles.listSubtitle}>{subtitle}</ListItem.Subtitle>
+      </ListItem.Content>
+      <ListItem.Chevron />
+    </ListItem.Swipeable>
+  );
+};
 
 const MemoList: React.FC = () => {
   return (
     <View style={styles.memoList}>
-      <View style={styles.memoListItem}>
-        <View>
-          <Text style={styles.itemTitle}>買い物リスト</Text>
-          <Text style={styles.itemDate}>2023/5/5 10:00</Text>
-        </View>
-        <View style={styles.memoListDeleteButton}>
-          <Text>X</Text>
-        </View>
-      </View>
-      <View style={styles.memoListItem}>
-        <View>
-          <Text style={styles.itemTitle}>買い物リスト</Text>
-          <Text style={styles.itemDate}>2023/5/5 10:00</Text>
-        </View>
-        <View style={styles.memoListDeleteButton}>
-          <Text>X</Text>
-        </View>
-      </View>
+      <MemoListItem title={'やることリスト'} subtitle={'2023/5/5 10:00'} />
+      <MemoListItem title={'やることリスト'} subtitle={'2023/5/5 10:00'} />
+      <MemoListItem title={'やることリスト'} subtitle={'2023/5/5 10:00'} />
+      <MemoListItem title={'やることリスト'} subtitle={'2023/5/5 10:00'} />
+      <MemoListItem title={'やることリスト'} subtitle={'2023/5/5 10:00'} />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   memoList: {
+    flex: 1,
     marginTop: 104,
   },
-  memoListItem: {
-    backgroundColor: '#ffffff',
-    paddingVertical: 16,
-    paddingHorizontal: 19,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    borderBottomColor: 'rgba(0, 0, 0, 0.1)',
-    borderBottomWidth: 1,
-  },
-  memoListDeleteButton: {
-    alignSelf: 'center',
-    padding: 8,
-  },
-  itemTitle: {
+  listTitle: {
     fontSize: 20,
     lineHeight: 32,
   },
-  itemDate: {
+  listSubtitle: {
     fontSize: 12,
     lineHeight: 16,
     color: '#848484',

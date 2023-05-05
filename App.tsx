@@ -1,11 +1,22 @@
 import React from 'react';
-// import { StatusBar } from 'expo-status-bar';
-// import { StyleSheet, Text, View } from 'react-native';
+import { ThemeProvider, createTheme } from '@rneui/themed';
+
+const theme = createTheme({
+  components: {
+    Button: {
+      raised: true,
+    },
+  },
+});
 
 import MemoListScreen from './src/screens/MemoListScreen';
 
 const App: React.FC = () => {
-  return <MemoListScreen />;
+  return (
+    <ThemeProvider theme={theme}>
+      <MemoListScreen />
+    </ThemeProvider>
+  );
 };
 
 export default App;

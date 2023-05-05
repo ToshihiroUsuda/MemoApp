@@ -1,8 +1,9 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 
 import AppHeader from '../components/AppHeader';
 import MemoList from '../components/MemoList';
+import CircleButton from '../components/CircleButton';
 
 const MemoListScreen: React.FC = () => {
   return (
@@ -12,7 +13,7 @@ const MemoListScreen: React.FC = () => {
       {/* MemoList */}
       <MemoList />
       {/* Button*/}
-      <View></View>
+      <CircleButton name="add" />
     </View>
   );
 };
@@ -23,5 +24,4 @@ const styles = StyleSheet.create({
     backgroundColor: '#E5E5E5',
   },
 });
-
 export default MemoListScreen;
