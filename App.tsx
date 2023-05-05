@@ -9,12 +9,16 @@ const theme = createTheme({
   },
 });
 
-import MemoListScreen from './src/screens/MemoListScreen';
+// import MemoListScreen from './src/screens/MemoListScreen';
+// import MemoDetailScreen from './src/screens/MemoDetailScreen';
+import MemoEditScreen from './src/screens/MemoEditScreen';
 
 const App: React.FC = () => {
   return (
     <ThemeProvider theme={theme}>
-      <MemoListScreen />
+      {/* <MemoListScreen /> */}
+      {/* <MemoDetailScreen /> */}
+      <MemoEditScreen />
     </ThemeProvider>
   );
 };
