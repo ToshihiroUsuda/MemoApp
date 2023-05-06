@@ -1,13 +1,30 @@
-import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import React, { useCallback } from 'react';
+import { View, StyleSheet, GestureResponderEvent } from 'react-native';
 import { Input, Button } from '@rneui/themed';
 
-const UserForm: React.FC = () => {
+import { useScreenNavigation } from '../screens/navigation';
+
+type UserFormProps = {
+  onSubmit?: (event?: GestureResponderEvent) => void;
+};
+
+const UserForm: React.FC<UserFormProps> = (props) => {
+  const { onSubmit } = props;
+  const navigation = useScreenNavigation();
+  const handleSubmit = useCallback(() => {
+    if (onSubmit) {
+      onSubmit();
+    }
+    navigation.reset({
+      index: 0,
+      routes: [{ name: 'MemoList' }],
+    });
+  }, [navigation, onSubmit]);
   return (
     <View style={styles.form}>
       <Input placeholder="Email Adress" />
       <Input placeholder="Passward" />
-      <Button title="Submit" />
+      <Button title="Submit" onPress={handleSubmit} />
     </View>
   );
 };

@@ -1,22 +1,26 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { useTheme } from '@rneui/themed';
 
-import AppHeader from '../components/AppHeader';
 import RaisedCircleButton from '../components/CircleButton';
+import { MemoDetailScreenProps } from './navigation';
 
-const MemoDetailScreen: React.FC = () => {
+const MemoDetailScreen: React.FC<MemoDetailScreenProps> = (props) => {
+  const { navigation } = props;
   const { theme } = useTheme();
+  const handlePress = useCallback(() => {
+    navigation.navigate('MemoEdit');
+  }, [navigation]);
+
   return (
-    <View style={styles.container}>
-      <AppHeader />
+    <View style={[styles.container, { backgroundColor: theme.colors.background }]}>
       <View style={[styles.memoInfoBar, { backgroundColor: theme.colors.primary }]}>
         <Text style={styles.momoInfoTitle}>買い物リスト</Text>
         <Text style={styles.memoInfoDate}>2023/5/5 10:00</Text>
       </View>
-      <RaisedCircleButton name="edit" style={{ top: 160, bottom: 'auto' }} />
+      <RaisedCircleButton name="edit" style={{ top: 64, bottom: 'auto' }} onPress={handlePress} />
       <View style={styles.memoBody}>
-        <Text style={styles.memoBodyText}>
+        <Text style={[styles.memoBodyText, { color: theme.colors.black }]}>
           学習は日々の積み重ねが大切です。
           調査によると、学習を習慣化している受講生の方がそうでない受講生より学習目標を達成する可能性が高いようです。
           学習スケジューラーを使って学習時間を確保しておき、リマインダーを受け取りましょう。
@@ -31,7 +35,6 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   memoInfoBar: {
-    marginTop: 104,
     paddingVertical: 24,
     paddingHorizontal: 19,
   },

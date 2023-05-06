@@ -1,18 +1,15 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
+import { useTheme } from '@rneui/themed';
 
-import AppHeader from '../components/AppHeader';
 import MemoList from '../components/MemoList';
 import RaisedCircleButton from '../components/CircleButton';
 
 const MemoListScreen: React.FC = () => {
+  const { theme } = useTheme();
   return (
-    <View style={styles.container}>
-      {/* Header */}
-      <AppHeader />
-      {/* MemoList */}
+    <View style={[styles.container, { backgroundColor: theme.colors.background }]}>
       <MemoList />
-      {/* Button*/}
       <RaisedCircleButton name="add" />
     </View>
   );
@@ -21,7 +18,6 @@ const MemoListScreen: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#E5E5E5',
   },
 });
 export default MemoListScreen;

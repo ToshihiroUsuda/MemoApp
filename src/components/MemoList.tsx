@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { ListItem, Button } from '@rneui/themed';
+// import { useNavigation, NavigationProp } from '@react-navigation/native';
+
+import { useScreenNavigation } from '../screens/navigation';
 
 type MemeListItemProps = {
   title: string;
@@ -8,7 +11,11 @@ type MemeListItemProps = {
 };
 
 const MemoListItem: React.FC<MemeListItemProps> = (props) => {
+  const navigation = useScreenNavigation();
   const { title, subtitle } = props;
+  const handlePress = useCallback(() => {
+    navigation.navigate('MemoDetail');
+  }, [navigation]);
 
   return (
     <ListItem.Swipeable
@@ -22,6 +29,7 @@ const MemoListItem: React.FC<MemeListItemProps> = (props) => {
           buttonStyle={{ minHeight: '100%', backgroundColor: 'red' }}
         />
       )}
+      onPress={handlePress}
     >
       <ListItem.Content>
         <ListItem.Title style={styles.listTitle}>{title}</ListItem.Title>
@@ -47,7 +55,6 @@ const MemoList: React.FC = () => {
 const styles = StyleSheet.create({
   memoList: {
     flex: 1,
-    marginTop: 104,
   },
   listTitle: {
     fontSize: 20,

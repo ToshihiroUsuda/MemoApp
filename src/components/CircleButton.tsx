@@ -1,13 +1,13 @@
 import React from 'react';
 import { StyleSheet, ViewStyle } from 'react-native';
-import { FAB, useTheme } from '@rneui/themed';
+import { FAB, useTheme, ButtonProps } from '@rneui/themed';
 
 type CircleButtonProps = {
   name: string;
   style?: ViewStyle;
-};
+} & ButtonProps;
 
-const RaisedCircleButton: React.FC<CircleButtonProps> = ({ name, style = {} }) => {
+const RaisedCircleButton: React.FC<CircleButtonProps> = ({ name, style = {}, onPress }) => {
   const { theme } = useTheme();
   return (
     <FAB
@@ -16,6 +16,7 @@ const RaisedCircleButton: React.FC<CircleButtonProps> = ({ name, style = {} }) =
       radius={100}
       style={[styles.circleButton, style]}
       icon={{ name, color: 'white' }}
+      onPress={onPress}
     />
   );
 };
