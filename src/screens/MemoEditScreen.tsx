@@ -2,7 +2,7 @@ import React from 'react';
 import { View, TextInput, StyleSheet, KeyboardAvoidingView } from 'react-native';
 
 import AppHeader from '../components/AppHeader';
-import CircleButton from '../components/CircleButton';
+import RaisedCircleButton from '../components/CircleButton';
 
 const MemoEditScreen: React.FC = () => {
   return (
@@ -13,12 +13,13 @@ const MemoEditScreen: React.FC = () => {
           multiline
           autoFocus
           style={styles.memoBodyText}
+          textAlignVertical={'top'}
           value="学習は日々の積み重ねが大切です。
           調査によると、学習を習慣化している受講生の方がそうでない受講生より学習目標を達成する可能性が高いようです。
           学習スケジューラーを使って学習時間を確保しておき、リマインダーを受け取りましょう."
         />
       </View>
-      <CircleButton name="check" />
+      <RaisedCircleButton name="check" />
     </KeyboardAvoidingView>
   );
 };
@@ -31,10 +32,13 @@ const styles = StyleSheet.create({
     marginTop: 104,
     paddingVertical: 32,
     paddingHorizontal: 27,
+    flex: 1,
   },
   memoBodyText: {
     fontSize: 16,
     lineHeight: 24,
+    // backgroundColor: 'gray',
+    flex: 1,
   },
 });
 

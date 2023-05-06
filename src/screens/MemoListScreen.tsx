@@ -3,7 +3,7 @@ import { View, StyleSheet } from 'react-native';
 
 import AppHeader from '../components/AppHeader';
 import MemoList from '../components/MemoList';
-import CircleButton from '../components/CircleButton';
+import RaisedCircleButton from '../components/CircleButton';
 
 const MemoListScreen: React.FC = () => {
   return (
@@ -13,7 +13,7 @@ const MemoListScreen: React.FC = () => {
       {/* MemoList */}
       <MemoList />
       {/* Button*/}
-      <CircleButton name="add" />
+      <RaisedCircleButton name="add" />
     </View>
   );
 };

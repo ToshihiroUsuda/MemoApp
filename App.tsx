@@ -9,16 +9,20 @@ const theme = createTheme({
   },
 });
 
-// import MemoListScreen from './src/screens/MemoListScreen';
-// import MemoDetailScreen from './src/screens/MemoDetailScreen';
+import MemoListScreen from './src/screens/MemoListScreen';
+import MemoDetailScreen from './src/screens/MemoDetailScreen';
 import MemoEditScreen from './src/screens/MemoEditScreen';
+import LogInScreen from './src/screens/LogInScreen';
+import SignInScreen from './src/screens/SignInScreen';
 
 const App: React.FC = () => {
   return (
     <ThemeProvider theme={theme}>
       {/* <MemoListScreen /> */}
       {/* <MemoDetailScreen /> */}
-      <MemoEditScreen />
+      {/* <MemoEditScreen /> */}
+      {/* <SignInScreen /> */}
+      <LogInScreen />
     </ThemeProvider>
   );
 };

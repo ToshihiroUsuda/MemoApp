@@ -3,7 +3,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import { useTheme } from '@rneui/themed';
 
 import AppHeader from '../components/AppHeader';
-import CircleButton from '../components/CircleButton';
+import RaisedCircleButton from '../components/CircleButton';
 
 const MemoDetailScreen: React.FC = () => {
   const { theme } = useTheme();
@@ -14,7 +14,7 @@ const MemoDetailScreen: React.FC = () => {
         <Text style={styles.momoInfoTitle}>買い物リスト</Text>
         <Text style={styles.memoInfoDate}>2023/5/5 10:00</Text>
       </View>
-      <CircleButton name="edit" style={{ top: 160, bottom: 'auto' }} />
+      <RaisedCircleButton name="edit" style={{ top: 160, bottom: 'auto' }} />
       <View style={styles.memoBody}>
         <Text style={styles.memoBodyText}>
           学習は日々の積み重ねが大切です。
