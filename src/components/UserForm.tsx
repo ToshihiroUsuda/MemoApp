@@ -6,9 +6,10 @@ import { yupResolver } from '@hookform/resolvers/yup';
 
 import { useScreenNavigation } from '../screens/navigation';
 import { FormTextInput, Form, schema } from './FormTextInput';
+import { FirebaseError } from 'firebase/app';
 
 type UserFormProps = {
-  onSubmit?: (event?: GestureResponderEvent) => void;
+  onSubmit: (data: Form) => Promise<void>;
 };
 
 const UserForm: React.FC<UserFormProps> = (props) => {
@@ -25,14 +26,19 @@ const UserForm: React.FC<UserFormProps> = (props) => {
   const isInvalid: boolean = Object.keys(errors).length > 0 || !isDirty;
 
   const onValid = (data: Form) => {
-    console.log(data);
-    if (props.onSubmit) {
-      props.onSubmit();
-    }
-    navigation.reset({
-      index: 0,
-      routes: [{ name: 'MemoList' }],
-    });
+    props
+      .onSubmit(data)
+      .then(() => {
+        navigation.reset({
+          index: 0,
+          routes: [{ name: 'MemoList' }],
+        });
+      })
+      .catch((e) => {
+        if (e instanceof FirebaseError) {
+          console.log(e);
+        }
+      });
   };
 
   return (
@@ -55,11 +61,7 @@ const UserForm: React.FC<UserFormProps> = (props) => {
         secureTextEntry
         textContentType="password"
       />
-      <Button
-        title="Submit"
-        onPress={(event: GestureResponderEvent) => void handleSubmit(onValid)(event)}
-        disabled={isInvalid}
-      />
+      <Button title="Submit" onPress={handleSubmit(onValid)} disabled={isInvalid} />
     </View>
   );
 };

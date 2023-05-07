@@ -6,12 +6,12 @@ export type ScreenPropsList = {
   MemoDetail: { docId: string } | undefined;
   MemoEdit: { docId: string } | undefined;
   LogIn: undefined;
-  SignIn: undefined;
+  SignUp: undefined;
 };
 
 export type MemoDetailScreenProps = StackScreenProps<ScreenPropsList, 'MemoDetail'>;
 export type MemoEditScreenProps = StackScreenProps<ScreenPropsList, 'MemoEdit'>;
 export type LogInScreenProps = StackScreenProps<ScreenPropsList, 'LogIn'>;
-export type SignInScreenProps = StackScreenProps<ScreenPropsList, 'SignIn'>;
+export type SignInScreenProps = StackScreenProps<ScreenPropsList, 'SignUp'>;
 
 export const useScreenNavigation = () => useNavigation<NavigationProp<ScreenPropsList>>();

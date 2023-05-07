@@ -47,6 +47,15 @@ module.exports = {
         ],
         'no-empty-function': 'off',
         '@typescript-eslint/no-empty-function': 'off',
+        "@typescript-eslint/no-misused-promises": [
+            "error",
+            {
+                "checksVoidReturn": {
+                    "arguments": false,
+                    "attributes": false
+                }
+            }
+        ],
         'react/display-name': 'off',
         'react/prop-types': 'off',
         'prettier/prettier': 'error',

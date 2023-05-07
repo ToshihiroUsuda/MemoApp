@@ -1,16 +1,7 @@
 import 'react-native-gesture-handler';
 
 import React from 'react';
-import { ThemeProvider, createTheme } from '@rneui/themed';
-
-const theme = createTheme({
-  mode: 'light',
-  components: {
-    Button: {
-      raised: true,
-    },
-  },
-});
+import { ThemeProvider } from '@rneui/themed';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator, CardStyleInterpolators } from '@react-navigation/stack';
@@ -19,8 +10,12 @@ import MemoListScreen from './src/screens/MemoListScreen';
 import MemoDetailScreen from './src/screens/MemoDetailScreen';
 import MemoEditScreen from './src/screens/MemoEditScreen';
 import LogInScreen from './src/screens/LogInScreen';
-import SignInScreen from './src/screens/SignInScreen';
+import SignUpScreen from './src/screens/SignUpScreen';
 import { ScreenPropsList } from './src/screens/navigation';
+
+import { theme } from './src/theme';
+import { initializeFirebaseApp } from './src/services/firebase';
+initializeFirebaseApp();
 
 const Stack = createStackNavigator<ScreenPropsList>();
 
@@ -56,8 +51,8 @@ const App: React.FC = () => {
             }}
           />
           <Stack.Screen
-            name="SignIn"
-            component={SignInScreen}
+            name="SignUp"
+            component={SignUpScreen}
             options={{
               cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid,
             }}

@@ -1,15 +1,16 @@
 import React, { useCallback } from 'react';
-import { View, StyleSheet, GestureResponderEvent } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { useTheme, Button, Text } from '@rneui/themed';
 
 import UserForm from './UserForm';
+import { Form } from './FormTextInput';
 import { useScreenNavigation } from '../screens/navigation';
 
 type UserInputProps = {
   title: string;
   footerDescription: string;
-  footerLinkDestination: 'LogIn' | 'SignIn';
-  onSubmit?: (event?: GestureResponderEvent) => void;
+  footerLinkDestination: 'LogIn' | 'SignUp';
+  onSubmit: (data: Form) => Promise<void>;
 };
 
 const UserInput: React.FC<UserInputProps> = (props) => {

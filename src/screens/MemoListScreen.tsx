@@ -7,6 +7,7 @@ import RaisedCircleButton from '../components/CircleButton';
 
 const MemoListScreen: React.FC = () => {
   const { theme } = useTheme();
+
   return (
     <View style={[styles.container, { backgroundColor: theme.colors.background }]}>
       <MemoList />
