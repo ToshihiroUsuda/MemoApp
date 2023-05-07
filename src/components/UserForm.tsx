@@ -42,17 +42,18 @@ const UserForm: React.FC<UserFormProps> = (props) => {
         areaName="email"
         label="メールアドレス"
         placeholder="Email Adress"
-        autoComplete="email"
+        keyboardType="email-address"
         autoCapitalize="none"
+        textContentType="emailAddress"
       />
       <FormTextInput
         control={control}
         areaName="password"
         label="パスワード"
         placeholder="Password"
-        autoComplete="password"
         autoCapitalize="none"
         secureTextEntry
+        textContentType="password"
       />
       <Button
         title="Submit"
