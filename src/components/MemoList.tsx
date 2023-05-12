@@ -1,22 +1,52 @@
-import React, { useCallback } from 'react';
-import { View, StyleSheet } from 'react-native';
+import React from 'react';
+import { View, StyleSheet, Alert, FlatList, ListRenderItem } from 'react-native';
 import { ListItem, Button } from '@rneui/themed';
+import { getFirestore, doc, deleteDoc } from 'firebase/firestore';
+import { getAuth } from 'firebase/auth';
 // import { useNavigation, NavigationProp } from '@react-navigation/native';
-
 import { useScreenNavigation } from '../screens/navigation';
+import { MemoCollection, memoConverter } from '../services/firebase';
 
-type MemeListItemProps = {
+type MemoListItemProps = {
+  docId: string;
   title: string;
   subtitle: string;
 };
 
-const MemoListItem: React.FC<MemeListItemProps> = (props) => {
+const MemoListItem: React.FC<MemoListItemProps> = (props) => {
   const navigation = useScreenNavigation();
-  const { title, subtitle } = props;
-  const handlePress = useCallback(() => {
-    navigation.navigate('MemoDetail');
-  }, [navigation]);
+  const { docId, title, subtitle } = props;
+  const handlePress = () => {
+    navigation.navigate('MemoDetail', { docId });
+  };
 
+  const handleDelete = (reset: () => void) => {
+    const { currentUser } = getAuth();
+    if (currentUser) {
+      const db = getFirestore();
+      const docRef = doc(db, `users/${currentUser.uid}/memos/${docId}`).withConverter(
+        memoConverter,
+      );
+      Alert.alert('メモを削除します', 'よろしいですか？', [
+        {
+          text: 'キャンセル',
+          onPress: () => {
+            reset();
+          },
+        },
+        {
+          text: '削除',
+          style: 'destructive',
+          onPress: () => {
+            deleteDoc(docRef).catch(() => {
+              Alert.alert('削除に失敗しました');
+            });
+            reset();
+          },
+        },
+      ]);
+    }
+  };
   return (
     <ListItem.Swipeable
       bottomDivider
@@ -24,7 +54,7 @@ const MemoListItem: React.FC<MemeListItemProps> = (props) => {
       rightContent={(reset) => (
         <Button
           title="Delete"
-          onPress={() => reset()}
+          onPress={() => handleDelete(reset)}
           icon={{ name: 'delete', color: 'white' }}
           buttonStyle={{ minHeight: '100%', backgroundColor: 'red' }}
         />
@@ -32,7 +62,9 @@ const MemoListItem: React.FC<MemeListItemProps> = (props) => {
       onPress={handlePress}
     >
       <ListItem.Content>
-        <ListItem.Title style={styles.listTitle}>{title}</ListItem.Title>
+        <ListItem.Title style={styles.listTitle} numberOfLines={1}>
+          {title}
+        </ListItem.Title>
         <ListItem.Subtitle style={styles.listSubtitle}>{subtitle}</ListItem.Subtitle>
       </ListItem.Content>
       <ListItem.Chevron />
@@ -40,14 +72,30 @@ const MemoListItem: React.FC<MemeListItemProps> = (props) => {
   );
 };
 
-const MemoList: React.FC = () => {
+type MemoListProps = {
+  memos: MemoCollection[];
+};
+
+const MemoList: React.FC<MemoListProps> = (props) => {
+  const { memos } = props;
+  const renderItem: ListRenderItem<MemoCollection> = ({ item }) => {
+    return (
+      <MemoListItem
+        key={item.id}
+        docId={item.id}
+        title={item.bodyText}
+        subtitle={String(item.updatedAt)}
+      />
+    );
+  };
+
   return (
-    <View style={styles.memoList}>
-      <MemoListItem title={'やることリスト'} subtitle={'2023/5/5 10:00'} />
-      <MemoListItem title={'やることリスト'} subtitle={'2023/5/5 10:00'} />
-      <MemoListItem title={'やることリスト'} subtitle={'2023/5/5 10:00'} />
-      <MemoListItem title={'やることリスト'} subtitle={'2023/5/5 10:00'} />
-      <MemoListItem title={'やることリスト'} subtitle={'2023/5/5 10:00'} />
+    <View>
+      <FlatList
+        data={memos}
+        renderItem={renderItem}
+        keyExtractor={(item: MemoCollection) => item.id}
+      />
     </View>
   );
 };

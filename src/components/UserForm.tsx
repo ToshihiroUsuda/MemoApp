@@ -1,5 +1,5 @@
-import React, { useCallback } from 'react';
-import { View, StyleSheet, GestureResponderEvent } from 'react-native';
+import React from 'react';
+import { View, StyleSheet } from 'react-native';
 import { Button } from '@rneui/themed';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
